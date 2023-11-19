@@ -1,4 +1,4 @@
-package scale
+package trim
 
 import (
 	"bufio"
@@ -9,14 +9,14 @@ import (
 	xpm "github.com/tmazitov/xpm_editor.git/pkg/xpm_file"
 )
 
-type ScaleTool struct{}
+type TrimTool struct{}
 
-func (t *ScaleTool) Execute(filePaths []string) error {
+func (t *TrimTool) Execute(filePaths []string) error {
 
 	var (
-		file       *xpm.XpmFile
-		files      []*xpm.XpmFile
-		scaleCount int
+		file      *xpm.XpmFile
+		files     []*xpm.XpmFile
+		trimCount int
 	)
 	// 1. Load xmp files
 	for _, filePath := range filePaths {
@@ -27,13 +27,13 @@ func (t *ScaleTool) Execute(filePaths []string) error {
 		files = append(files, file)
 	}
 
-	// 2. Scale count
-	scaleCount = enterScaleCount()
+	// 2. Trim count
+	trimCount = enterTrimCount()
 
-	// 3. Scale files
+	// 3. Trim files
 	for _, file := range files {
 		fmt.Print(file.FilePath)
-		if err := file.Scale(scaleCount); err != nil {
+		if err := file.Trim(trimCount); err != nil {
 			return err
 		}
 		if err := file.Write(); err != nil {
@@ -44,10 +44,10 @@ func (t *ScaleTool) Execute(filePaths []string) error {
 	return nil
 }
 
-func enterScaleCount() int {
+func enterTrimCount() int {
 	var result int
 
-	fmt.Println("\nEnter the scale count:")
+	fmt.Println("\nEnter the trim count:")
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		if scanner.Scan() {
@@ -58,7 +58,7 @@ func enterScaleCount() int {
 				break
 			}
 
-			fmt.Println("\nEnter the scale count:")
+			fmt.Println("\nEnter the trim count:")
 		} else {
 			fmt.Println("Error reading input:", scanner.Err())
 			break
