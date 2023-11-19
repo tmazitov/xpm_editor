@@ -109,19 +109,6 @@ func (xpm *XpmFile) Read() error {
 		}
 	}
 
-	for _, headerRow := range xpm.header {
-		fmt.Printf("h : %s\n", headerRow)
-	}
-	for _, color := range xpm.colors {
-		fmt.Printf("c : %s\n", color.ToString())
-	}
-	for _, imageRow := range xpm.image {
-		fmt.Printf("i : %s\n", imageRow)
-	}
-	for _, footerRow := range xpm.footer {
-		fmt.Printf("f : %s\n", footerRow)
-	}
-
 	return nil
 }
 

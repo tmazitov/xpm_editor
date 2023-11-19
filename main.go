@@ -7,10 +7,7 @@ import (
 )
 
 func main() {
-	var (
-		core *app.App
-	)
-	core = app.NewApp(app.AppCreateOptions{
+	var core *app.App = app.NewApp(app.AppCreateOptions{
 		Name:         "xpm_editor",
 		MajorVersion: 0,
 		MinorVersion: 1,

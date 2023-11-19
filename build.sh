@@ -1,0 +1,1 @@
+go build -o build/xpm_editor
