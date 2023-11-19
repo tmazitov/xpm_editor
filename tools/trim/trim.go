@@ -33,8 +33,14 @@ func (t *TrimTool) Execute(filePaths []string) error {
 	// 3. Trim files
 	for _, file := range files {
 		fmt.Print(file.FilePath)
-		if err := file.Trim(trimCount); err != nil {
-			return err
+		if trimCount > 0 {
+			if err := file.Trim(trimCount); err != nil {
+				return err
+			}
+		} else if trimCount == -1 {
+			if err := file.TrimAuto(); err != nil {
+				return err
+			}
 		}
 		if err := file.Write(); err != nil {
 			return err
@@ -53,6 +59,10 @@ func enterTrimCount() int {
 		if scanner.Scan() {
 
 			input := scanner.Text()
+			if input == "a" {
+				result = -1
+				break
+			}
 			if isPositiveInteger(input) {
 				result, _ = strconv.Atoi(input)
 				break
