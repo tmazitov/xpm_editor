@@ -74,8 +74,10 @@ func (x *XpmFile) TrimAuto() error {
 			}
 		}
 	}
-	fmt.Println(trim_head, trim_foot)
-	x.image = x.image[trim_head : x.rows-trim_foot-1]
+	fmt.Printf("\nhead: %d\nfoot: %d\nright: %d\nleft: %d\n", trim_head, trim_foot, trim_right, trim_left)
+	if trim_head != 0 || trim_foot != 0 {
+		x.image = x.image[trim_head : x.rows-trim_foot]
+	}
 	for index, imageRow := range x.image {
 		x.image[index] = imageRow[trim_left : x.columns-trim_right]
 	}

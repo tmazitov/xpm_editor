@@ -76,7 +76,7 @@ func (xpm *XpmFile) Read() error {
 	rawString = string(raw)
 	rows = strings.Split(rawString, "\n")
 	for _, row := range rows {
-		if strings.Contains(row, "/*") && strings.Contains(row, "*/") {
+		if (strings.Contains(row, "/*") && strings.Contains(row, "*/")) || row == "" {
 			continue
 		}
 		row_is_color = isColor(row)
@@ -101,12 +101,16 @@ func (xpm *XpmFile) Read() error {
 		} else if foundColors && row_is_color {
 			xpm.colors = append(xpm.colors, NewXpmColor(row))
 		} else if row == "};" {
-			xpm.footer = append(xpm.footer, "},")
+			xpm.footer = append(xpm.footer, "};")
 		} else if foundColors && !row_is_color {
 			row = strings.ReplaceAll(row, "\"", "")
 			row = strings.ReplaceAll(row, ",", "")
 			xpm.image = append(xpm.image, row)
 		}
+	}
+
+	for _, imageRow := range xpm.image {
+		fmt.Println(imageRow)
 	}
 
 	return nil

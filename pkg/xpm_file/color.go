@@ -26,7 +26,7 @@ func (x *xpmColor) ToString() string {
 }
 
 func isColor(line string) bool {
-	pattern := `.[ \t]c #[0-9A-Fa-f]{6}$`
+	pattern := `.[ \t]c [a-zA-Z#0-9A-Fa-f]{1,}$`
 
 	// Compile the regular expression
 	re, err := regexp.Compile(pattern)
